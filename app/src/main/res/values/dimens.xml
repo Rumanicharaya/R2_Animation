@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
+    <dimen name="floating_button_size">64dp</dimen>
+    <dimen name="button_elevation">8dp</dimen>
 </resources>
