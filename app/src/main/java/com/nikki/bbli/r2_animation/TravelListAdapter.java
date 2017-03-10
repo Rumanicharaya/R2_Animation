@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -38,8 +39,10 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.Vi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Place place = new PlaceData().placeList().get(position);
         holder.placeName.setText(place.name);
-        Picasso.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
-       
+        //Picasso.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
+        Glide.with(mContext)
+                .load(place.getImageResourceId(mContext))
+                .into(holder.placeImage);
         Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), place.getImageResourceId(mContext));
 
         Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {

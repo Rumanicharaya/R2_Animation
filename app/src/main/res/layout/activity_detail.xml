@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.nikki.bbli.r2_animation.DetailActivity">
-
-    <ImageView
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
         android:id="@+id/placeImage"
+        android:transitionName="tImage"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+            />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/EditTextHolder"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="#95000000"/>
+    </FrameLayout>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/placeNameHolder"
+        android:transitionName="tNameHolder"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         android:layout_height="60dp"
@@ -40,6 +52,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="28dp"
+        android:alpha="0.0"
         android:background="@drawable/btn_background"
         android:contentDescription="@null"
         android:elevation="@dimen/button_elevation"/>
