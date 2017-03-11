@@ -40,9 +40,8 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.Vi
         final Place place = new PlaceData().placeList().get(position);
         holder.placeName.setText(place.name);
         //Picasso.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
-        Glide.with(mContext)
-                .load(place.getImageResourceId(mContext))
-                .into(holder.placeImage);
+        //Glide.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
+        holder.placeImage.setImageResource(place.getImageResourceId(mContext));
         Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), place.getImageResourceId(mContext));
 
         Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
