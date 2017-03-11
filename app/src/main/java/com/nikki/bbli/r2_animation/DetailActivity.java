@@ -61,10 +61,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         windowTransition();
         getPhoto();
 
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
+
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             getWindow().setNavigationBarColor(getResources().getColor(android.R.color.transparent));
-        }
+
 
     }
 
