@@ -10,7 +10,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.transition.Fade;
@@ -18,12 +18,15 @@ import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+
 
 public class DetailActivity extends Activity implements View.OnClickListener {
     private ImageButton mAddButton;
@@ -37,8 +40,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private LinearLayout mTitleHolder,mEditTextHolder;
     int defaultColorForRipple;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         mPlace = PlaceData.placeList().get(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
@@ -56,7 +60,15 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         loadPlace();
         windowTransition();
         getPhoto();
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.transparent));
+        }
+
     }
+
+
     private void getPhoto() {
         Bitmap photo = BitmapFactory.decodeResource(getResources(), mPlace.getImageResourceId(this));
         colorize(photo);
@@ -69,7 +81,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private void applyPalette(Palette mPalette) {
         getWindow().setBackgroundDrawable(new ColorDrawable(mPalette.getDarkMutedColor(defaultColorForRipple)));
         mTitleHolder.setBackgroundColor(mPalette.getMutedColor(defaultColorForRipple));
-        mImageView.setBackgroundColor(mPalette.getLightVibrantColor(defaultColorForRipple));
+        mEditTextHolder.setBackgroundColor(mPalette.getLightVibrantColor(defaultColorForRipple));
         applyRippleColor(mPalette.getVibrantColor(defaultColorForRipple),
                 mPalette.getDarkVibrantColor(defaultColorForRipple));
 
@@ -137,7 +149,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         isEditTextVisible = false;
         anim.start();
     }
-
 
     @Override
     public void onClick(View view) {

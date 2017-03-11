@@ -35,7 +35,8 @@ public class MainActivity extends Activity {
 
         setUpUI();
     }
-    public void setUpUI(){
+
+    public void setUpUI() {
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
@@ -60,10 +61,8 @@ public class MainActivity extends Activity {
                     Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
             Pair<View, String> statusPair = Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME);
 
-
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_PARAM_ID, position);
-            //startActivity(intent);
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,
                     imagePair, holderPair, navPair, statusPair);
@@ -91,21 +90,22 @@ public class MainActivity extends Activity {
     }
 
 
-    public void toggle(){
+    public void toggle() {
         MenuItem item = menu.findItem(R.id.action_toggle);
 
-        if(isListView){
+        if (isListView) {
             mStaggeredLayoutManager.setSpanCount(2);
             item.setIcon(R.drawable.ic_action_list);
             item.setTitle("Show as list");
             isListView = false;
-        }else{
+        } else {
             mStaggeredLayoutManager.setSpanCount(1);
             item.setIcon(R.drawable.ic_action_grid);
             item.setTitle("Show as grid");
             isListView = true;
         }
     }
+
     private void setUpActionBar() {
         if (toolbar != null) {
             setActionBar(toolbar);
@@ -114,6 +114,5 @@ public class MainActivity extends Activity {
             getActionBar().setElevation(7);
         }
     }
-
 
 }
