@@ -41,16 +41,7 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.Vi
         holder.placeName.setText(place.name);
         //Picasso.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
         //Glide.with(mContext).load(place.getImageResourceId(mContext)).into(holder.placeImage);
-        holder.placeImage.setImageResource(place.getImageResourceId(mContext));
-        Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), place.getImageResourceId(mContext));
-
-        Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
-            public void onGenerated(Palette palette) {
-                int bgColor = palette.getMutedColor(mContext.getResources().getColor(android.R.color.black));
-                holder.placeNameHolder.setBackgroundColor(bgColor);
-            }
-        });
-
+        new ImageLoader().executeOnExecutor(holder,place,mContext);
     }
 
     @Override
@@ -58,7 +49,34 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.Vi
         return new PlaceData().placeList().size();
     }
 
+    private class ImageLoader extends AsyncTask<Object, void, Bitmap){
+            private ViewHolder viewholder;
+            private Place place;
+            private Context context;
 
+    @Override
+    protected Bitmap doInBackground(Object... params) {
+            viewholder = (ViewHolder) params[0];
+            place = (Place) params[1];
+            context = (Context) params[2];
+            return place.getImageResourceId(context);
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap result) {
+            super.onPostExecute(result);
+            if (viewholder.position == position) {
+                viewholder.placeImage.setImageResource(result);
+                Bitmap photo = BitmapFactory.decodeResource(context.getResources(), result);
+                Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
+                    public void onGenerated(Palette palette) {
+                        int bgColor = palette.getMutedColor(context.getResources().getColor(android.R.color.black));
+                        viewHolder.placeNameHolder.setBackgroundColor(bgColor);
+                    }
+                });
+            }
+          }
+    }
     // 3
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public LinearLayout placeHolder;
